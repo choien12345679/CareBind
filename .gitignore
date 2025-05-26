@@ -3,6 +3,9 @@
 # dependencies
 node_modules/
 
+# carebind-461014-50a82da5eacf.json 파일 제외 (API KEY)
+src/Components/Warning
+
 # Expo
 .expo/
 dist/

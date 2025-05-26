@@ -1,10 +1,54 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Image, StyleSheet } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Image, StyleSheet, Alert } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function LoginScreen({ navigation }) {
   const [id, setId] = useState('');
   const [pw, setPw] = useState('');
+
+  // 로그인 함수
+  const handleLogin = async () => {
+    try {
+      // 입력값 유효성 검사
+      if (!id || !pw) {
+        Alert.alert("오류", "ID와 Password를 모두 입력해주세요.");
+        return;
+      }
+
+      // AsyncStorage에서 완료된 사용자 데이터 가져오기
+      const userData = await AsyncStorage.getItem('completeUserData');
+      
+      if (!userData) {
+        Alert.alert("로그인 실패", "등록된 사용자 정보가 없습니다. 회원가입을 먼저 진행해주세요.");
+        return;
+      }
+
+      const parsedUserData = JSON.parse(userData);
+      
+      // ID와 Password 확인
+      if (parsedUserData.id === id && parsedUserData.password === pw) {
+        // 로그인 성공
+        // 현재 로그인한 사용자 정보 저장
+        await AsyncStorage.setItem('currentUser', JSON.stringify(parsedUserData));
+        
+        // 사용자 유형에 따라 다른 화면으로 이동
+        if (parsedUserData.userType === 'DP') {
+          // 사회적 약자 메인화면으로 이동
+          navigation.navigate('DPMain');
+        } else if (parsedUserData.userType === 'VT') {
+          // 자원봉사자 메인화면으로 이동 (추후 구현)
+          Alert.alert("알림", "자원봉사자 화면은 아직 구현 중입니다.");
+        }
+      } else {
+        Alert.alert("로그인 실패", "ID 또는 Password가 올바르지 않습니다.");
+      }
+      
+    } catch (error) {
+      console.error('Login error:', error);
+      Alert.alert("오류", "로그인 중 오류가 발생했습니다.");
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -46,7 +90,7 @@ export default function LoginScreen({ navigation }) {
       </TouchableOpacity>
 
       {/* LOGIN (그라데이션 버튼) */}
-      <TouchableOpacity style={styles.loginBtn}>
+      <TouchableOpacity style={styles.loginBtn} onPress={handleLogin}>
         <LinearGradient
           colors={['#F5A623', '#FFE259']}
           start={{ x: 0, y: 0 }}
