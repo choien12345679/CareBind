@@ -1,10 +1,23 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Image, StyleSheet } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Image, StyleSheet, Alert } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
 export default function LoginScreen({ navigation }) {
   const [id, setId] = useState('');
   const [pw, setPw] = useState('');
+
+  const handleLogin = () => {
+    if (!id || !pw) {
+      Alert.alert('Error', 'Please enter both ID and password');
+      return;
+    }
+    // TODO: Add actual authentication logic here
+    navigation.navigate('Matching');
+  };
+
+  const handleSignUp = () => {
+    navigation.navigate('SignUpSelect');
+  };
 
   return (
     <View style={styles.container}>
@@ -23,7 +36,7 @@ export default function LoginScreen({ navigation }) {
       {/* PW 입력 */}
       <TextInput
         style={styles.input}
-        placeholder="Passwords"
+        placeholder="Password"
         placeholderTextColor="#6e6259"
         value={pw}
         onChangeText={setPw}
@@ -41,12 +54,12 @@ export default function LoginScreen({ navigation }) {
       </View>
 
       {/* Sign up */}
-      <TouchableOpacity style={styles.signupBtn} onPress={() => navigation.navigate('SignUpSelect')}>
+      <TouchableOpacity style={styles.signupBtn} onPress={handleSignUp}>
         <Text style={styles.signupBtnText}>Sign up</Text>
       </TouchableOpacity>
 
       {/* LOGIN (그라데이션 버튼) */}
-      <TouchableOpacity style={styles.loginBtn}>
+      <TouchableOpacity style={styles.loginBtn} onPress={handleLogin}>
         <LinearGradient
           colors={['#F5A623', '#FFE259']}
           start={{ x: 0, y: 0 }}

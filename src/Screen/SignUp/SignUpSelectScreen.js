@@ -13,7 +13,7 @@ export default function SignUpSelectScreen({ navigation }) {
       </TouchableOpacity>
 
       {/* Volunteer 버튼 */}
-      <TouchableOpacity style={styles.selectBtn}>
+      <TouchableOpacity style={styles.selectBtn} onPress={() => navigation.navigate('VTSignUp')}>
         <Text style={styles.selectBtnText}>Volunteer</Text>
       </TouchableOpacity>
     </View>
