@@ -1,0 +1,61 @@
+{
+  "buildFiles": [
+    "/Users/dkdk/dev/CareBind/node_modules/react-native-edge-to-edge/android/build/generated/source/codegen/jni/CMakeLists.txt",
+    "/Users/dkdk/dev/CareBind/node_modules/react-native-safe-area-context/android/src/main/jni/CMakeLists.txt",
+    "/Users/dkdk/dev/CareBind/node_modules/react-native-screens/android/src/main/jni/CMakeLists.txt",
+    "/Users/dkdk/dev/CareBind/node_modules/react-native/ReactAndroid/cmake-utils/default-app-setup/CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "/Users/dkdk/Library/Android/sdk/cmake/3.22.1/bin/ninja",
+      "-C",
+      "/Users/dkdk/dev/CareBind/android/app/.cxx/Debug/183w2s3y/armeabi-v7a",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "/Users/dkdk/Library/Android/sdk/cmake/3.22.1/bin/ninja",
+    "-C",
+    "/Users/dkdk/dev/CareBind/android/app/.cxx/Debug/183w2s3y/armeabi-v7a",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {
+    "react_codegen_safeareacontext::@7984cd80db47aa7b952a": {
+      "artifactName": "react_codegen_safeareacontext",
+      "abi": "armeabi-v7a",
+      "output": "/Users/dkdk/dev/CareBind/android/app/build/intermediates/cxx/Debug/183w2s3y/obj/armeabi-v7a/libreact_codegen_safeareacontext.so",
+      "runtimeFiles": [
+        "/Users/dkdk/.gradle/caches/8.13/transforms/5a89f88737dcaf880ea21b9fdcb02480/transformed/fbjni-0.7.0/prefab/modules/fbjni/libs/android.armeabi-v7a/libfbjni.so",
+        "/Users/dkdk/.gradle/caches/8.13/transforms/f5f3eb598334922b3ec7ac664aab84b4/transformed/react-android-0.79.2-debug/prefab/modules/jsi/libs/android.armeabi-v7a/libjsi.so",
+        "/Users/dkdk/.gradle/caches/8.13/transforms/f5f3eb598334922b3ec7ac664aab84b4/transformed/react-android-0.79.2-debug/prefab/modules/reactnative/libs/android.armeabi-v7a/libreactnative.so"
+      ]
+    },
+    "react_codegen_rnscreens::@25bcbd507e98d3a854ad": {
+      "artifactName": "react_codegen_rnscreens",
+      "abi": "armeabi-v7a",
+      "output": "/Users/dkdk/dev/CareBind/android/app/build/intermediates/cxx/Debug/183w2s3y/obj/armeabi-v7a/libreact_codegen_rnscreens.so",
+      "runtimeFiles": [
+        "/Users/dkdk/.gradle/caches/8.13/transforms/f5f3eb598334922b3ec7ac664aab84b4/transformed/react-android-0.79.2-debug/prefab/modules/reactnative/libs/android.armeabi-v7a/libreactnative.so",
+        "/Users/dkdk/.gradle/caches/8.13/transforms/f5f3eb598334922b3ec7ac664aab84b4/transformed/react-android-0.79.2-debug/prefab/modules/jsi/libs/android.armeabi-v7a/libjsi.so",
+        "/Users/dkdk/.gradle/caches/8.13/transforms/5a89f88737dcaf880ea21b9fdcb02480/transformed/fbjni-0.7.0/prefab/modules/fbjni/libs/android.armeabi-v7a/libfbjni.so"
+      ]
+    },
+    "appmodules::@6890427a1f51a3e7e1df": {
+      "artifactName": "appmodules",
+      "abi": "armeabi-v7a",
+      "output": "/Users/dkdk/dev/CareBind/android/app/build/intermediates/cxx/Debug/183w2s3y/obj/armeabi-v7a/libappmodules.so",
+      "runtimeFiles": [
+        "/Users/dkdk/dev/CareBind/android/app/build/intermediates/cxx/Debug/183w2s3y/obj/armeabi-v7a/libreact_codegen_safeareacontext.so",
+        "/Users/dkdk/dev/CareBind/android/app/build/intermediates/cxx/Debug/183w2s3y/obj/armeabi-v7a/libreact_codegen_rnscreens.so",
+        "/Users/dkdk/.gradle/caches/8.13/transforms/5a89f88737dcaf880ea21b9fdcb02480/transformed/fbjni-0.7.0/prefab/modules/fbjni/libs/android.armeabi-v7a/libfbjni.so",
+        "/Users/dkdk/.gradle/caches/8.13/transforms/f5f3eb598334922b3ec7ac664aab84b4/transformed/react-android-0.79.2-debug/prefab/modules/jsi/libs/android.armeabi-v7a/libjsi.so",
+        "/Users/dkdk/.gradle/caches/8.13/transforms/f5f3eb598334922b3ec7ac664aab84b4/transformed/react-android-0.79.2-debug/prefab/modules/reactnative/libs/android.armeabi-v7a/libreactnative.so"
+      ]
+    },
+    "react_codegen_RNEdgeToEdge::@668218a48b60eb28aa9e": {
+      "artifactName": "react_codegen_RNEdgeToEdge",
+      "abi": "armeabi-v7a",
+      "runtimeFiles": []
+    }
+  }
+}

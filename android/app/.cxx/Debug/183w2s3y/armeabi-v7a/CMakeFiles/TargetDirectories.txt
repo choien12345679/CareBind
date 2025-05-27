@@ -1,0 +1,12 @@
+/Users/dkdk/dev/CareBind/android/app/.cxx/Debug/183w2s3y/armeabi-v7a/CMakeFiles/appmodules.dir
+/Users/dkdk/dev/CareBind/android/app/.cxx/Debug/183w2s3y/armeabi-v7a/CMakeFiles/edit_cache.dir
+/Users/dkdk/dev/CareBind/android/app/.cxx/Debug/183w2s3y/armeabi-v7a/CMakeFiles/rebuild_cache.dir
+/Users/dkdk/dev/CareBind/android/app/.cxx/Debug/183w2s3y/armeabi-v7a/safeareacontext_autolinked_build/CMakeFiles/react_codegen_safeareacontext.dir
+/Users/dkdk/dev/CareBind/android/app/.cxx/Debug/183w2s3y/armeabi-v7a/safeareacontext_autolinked_build/CMakeFiles/edit_cache.dir
+/Users/dkdk/dev/CareBind/android/app/.cxx/Debug/183w2s3y/armeabi-v7a/safeareacontext_autolinked_build/CMakeFiles/rebuild_cache.dir
+/Users/dkdk/dev/CareBind/android/app/.cxx/Debug/183w2s3y/armeabi-v7a/rnscreens_autolinked_build/CMakeFiles/react_codegen_rnscreens.dir
+/Users/dkdk/dev/CareBind/android/app/.cxx/Debug/183w2s3y/armeabi-v7a/rnscreens_autolinked_build/CMakeFiles/edit_cache.dir
+/Users/dkdk/dev/CareBind/android/app/.cxx/Debug/183w2s3y/armeabi-v7a/rnscreens_autolinked_build/CMakeFiles/rebuild_cache.dir
+/Users/dkdk/dev/CareBind/android/app/.cxx/Debug/183w2s3y/armeabi-v7a/RNEdgeToEdge_autolinked_build/CMakeFiles/react_codegen_RNEdgeToEdge.dir
+/Users/dkdk/dev/CareBind/android/app/.cxx/Debug/183w2s3y/armeabi-v7a/RNEdgeToEdge_autolinked_build/CMakeFiles/edit_cache.dir
+/Users/dkdk/dev/CareBind/android/app/.cxx/Debug/183w2s3y/armeabi-v7a/RNEdgeToEdge_autolinked_build/CMakeFiles/rebuild_cache.dir
