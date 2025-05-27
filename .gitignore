@@ -6,6 +6,10 @@ node_modules/
 # carebind-461014-50a82da5eacf.json 파일 제외 (API KEY)
 src/Components/Warning
 
+# Android
+echo "android/app/build/" >> .gitignore
+echo "android/build/" >> .gitignore
+
 # Expo
 .expo/
 dist/
@@ -20,10 +24,6 @@ expo-env.d.ts
 *.p12
 *.key
 *.mobileprovision
-
-# Android
-echo "android/app/build/" >> .gitignore
-echo "android/build/" >> .gitignore
 
 # Metro
 .metro-health-check*
@@ -42,3 +42,5 @@ yarn-error.*
 
 # typescript
 *.tsbuildinfo
+src/Components/Warning/carebind-461014-50a82da5eacf.json
+src/Components/Warning/openAPIkey.js

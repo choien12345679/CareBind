@@ -67,7 +67,7 @@ export default function LoginScreen({ navigation }) {
       {/* PW 입력 */}
       <TextInput
         style={styles.input}
-        placeholder="Passwords"
+        placeholder="Password"
         placeholderTextColor="#6e6259"
         value={pw}
         onChangeText={setPw}
@@ -85,7 +85,7 @@ export default function LoginScreen({ navigation }) {
       </View>
 
       {/* Sign up */}
-      <TouchableOpacity style={styles.signupBtn} onPress={() => navigation.navigate('SignUpSelect')}>
+      <TouchableOpacity style={styles.signupBtn} onPress={handleSignUp}>
         <Text style={styles.signupBtnText}>Sign up</Text>
       </TouchableOpacity>
 
