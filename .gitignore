@@ -7,8 +7,8 @@ node_modules/
 src/Components/Warning
 
 # Android
-echo "android/app/build/" >> .gitignore
-echo "android/build/" >> .gitignore
+android/app/build/
+android/build/
 
 # Expo
 .expo/
