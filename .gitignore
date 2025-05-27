@@ -21,6 +21,10 @@ expo-env.d.ts
 *.key
 *.mobileprovision
 
+# Android
+echo "android/app/build/" >> .gitignore
+echo "android/build/" >> .gitignore
+
 # Metro
 .metro-health-check*
 
