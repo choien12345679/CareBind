@@ -18,6 +18,8 @@ expo-env.d.ts
 *.key
 *.mobileprovision
 
+# API KEY
+
 # Metro
 .metro-health-check*
 
@@ -35,3 +37,5 @@ yarn-error.*
 
 # typescript
 *.tsbuildinfo
+src/Components/Warning/carebind-461014-50a82da5eacf.json
+src/Components/Warning/openAPIkey.js
