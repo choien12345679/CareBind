@@ -35,8 +35,8 @@ export default function SignUpSelectScreen({ navigation }) {
       
       await AsyncStorage.setItem('selectedUserType', JSON.stringify(userTypeData));
       
-      // 자원봉사자 회원가입 화면으로 이동 (추후 구현)
-      Alert.alert("알림", "자원봉사자 회원가입 화면은 아직 구현 중입니다.");
+      // 자원봉사자 회원가입 화면으로 이동
+      navigation.navigate('VTSignUp');
       
     } catch (error) {
       console.error('Error saving user type:', error);

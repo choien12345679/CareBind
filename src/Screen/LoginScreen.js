@@ -16,29 +16,44 @@ export default function LoginScreen({ navigation }) {
         return;
       }
 
-      // AsyncStorage에서 완료된 사용자 데이터 가져오기
-      const userData = await AsyncStorage.getItem('completeUserData');
+      // 자원봉사자 데이터 확인
+      const vtUserData = await AsyncStorage.getItem('vtSignUpData');
+      // 장애인 데이터 확인  
+      const dpUserData = await AsyncStorage.getItem('completeUserData');
       
-      if (!userData) {
-        Alert.alert("로그인 실패", "등록된 사용자 정보가 없습니다. 회원가입을 먼저 진행해주세요.");
-        return;
+      let loginSuccess = false;
+      let userInfo = null;
+
+      // 자원봉사자 로그인 확인
+      if (vtUserData) {
+        const parsedVTUserData = JSON.parse(vtUserData);
+        if (parsedVTUserData.id === id && parsedVTUserData.password === pw) {
+          loginSuccess = true;
+          userInfo = parsedVTUserData;
+        }
       }
 
-      const parsedUserData = JSON.parse(userData);
-      
-      // ID와 Password 확인
-      if (parsedUserData.id === id && parsedUserData.password === pw) {
+      // 장애인 로그인 확인 (자원봉사자 로그인이 실패한 경우에만)
+      if (!loginSuccess && dpUserData) {
+        const parsedDPUserData = JSON.parse(dpUserData);
+        if (parsedDPUserData.id === id && parsedDPUserData.password === pw) {
+          loginSuccess = true;
+          userInfo = parsedDPUserData;
+        }
+      }
+
+      if (loginSuccess && userInfo) {
         // 로그인 성공
         // 현재 로그인한 사용자 정보 저장
-        await AsyncStorage.setItem('currentUser', JSON.stringify(parsedUserData));
+        await AsyncStorage.setItem('currentUser', JSON.stringify(userInfo));
         
         // 사용자 유형에 따라 다른 화면으로 이동
-        if (parsedUserData.userType === 'DP') {
-          // 사회적 약자 메인화면으로 이동
+        if (userInfo.userType === 'DP') {
+          // 장애인 메인화면으로 이동
           navigation.navigate('DPMain');
-        } else if (parsedUserData.userType === 'VT') {
-          // 자원봉사자 메인화면으로 이동 (추후 구현)
-          Alert.alert("알림", "자원봉사자 화면은 아직 구현 중입니다.");
+        } else if (userInfo.userType === 'VT') {
+          // 자원봉사자 매칭화면으로 이동
+          navigation.navigate('Matching');
         }
       } else {
         Alert.alert("로그인 실패", "ID 또는 Password가 올바르지 않습니다.");
@@ -48,6 +63,11 @@ export default function LoginScreen({ navigation }) {
       console.error('Login error:', error);
       Alert.alert("오류", "로그인 중 오류가 발생했습니다.");
     }
+  };
+
+  // 회원가입 버튼 클릭 함수
+  const handleSignUp = () => {
+    navigation.navigate('SignUpSelect');
   };
 
   return (

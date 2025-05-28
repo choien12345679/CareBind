@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Image, StyleSheet, Alert } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import * as ImagePicker from 'expo-image-picker';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function VTSignUpScreen({ navigation }) {
   const [id, setId] = useState('');
@@ -36,6 +37,43 @@ export default function VTSignUpScreen({ navigation }) {
         { text: '취소', style: 'cancel' }
       ]
     );
+  };
+
+  // 회원가입 정보 저장 함수
+  const handleSignUp = async () => {
+    try {
+      // 입력값 유효성 검사
+      if (!id || !pw || !address || !phone) {
+        Alert.alert("오류", "모든 필드를 입력해주세요.");
+        return;
+      }
+
+      // 기존 사용자 유형 정보 가져오기
+      const userTypeData = await AsyncStorage.getItem('selectedUserType');
+      const parsedUserTypeData = userTypeData ? JSON.parse(userTypeData) : {};
+
+      // 회원가입 정보 객체 생성
+      const signUpData = {
+        ...parsedUserTypeData, // 사용자 유형 정보 포함
+        id: id,
+        password: pw,
+        address: address,
+        phone: phone,
+        profileImage: profileImage,
+        signUpAt: new Date().toISOString(),
+        step: 'basic_info_completed' // 기본 정보 입력 완료
+      };
+
+      // AsyncStorage에 회원가입 정보 저장
+      await AsyncStorage.setItem('vtSignUpData', JSON.stringify(signUpData));
+
+      // VTExtraInfo 화면으로 이동
+      navigation.navigate('VTExtraInfo');
+
+    } catch (error) {
+      console.error('Error saving signup data:', error);
+      Alert.alert("오류", "회원가입 정보 저장 중 오류가 발생했습니다.");
+    }
   };
 
   return (
@@ -80,7 +118,7 @@ export default function VTSignUpScreen({ navigation }) {
         keyboardType="phone-pad"
       />
       {/* Continue 버튼 */}
-      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('VTExtraInfo')}>
+      <TouchableOpacity style={styles.button} onPress={handleSignUp}>
         <LinearGradient colors={["#F5A623", "#FFE259"]} style={styles.gradient}>
           <Text style={styles.buttonText}>Continue</Text>
         </LinearGradient>

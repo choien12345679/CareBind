@@ -1,51 +1,69 @@
 import React from 'react';
 import { View, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 
 export default function BottomNav({ navigation, active }) {
   return (
-    <View style={styles.bottomNav}>
-      <TouchableOpacity onPress={() => navigation.navigate('History')}>
-        <Image source={require('./Images/list_icon.png')} style={[styles.navIcon, active === 'list' && styles.active]} />
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate('Matching')}>
-        <Image source={require('../../assets/carebind_logo.png')} style={styles.navLogo} />
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate('Main')}>
-        <Image source={require('./Images/profile_icon.png')} style={[styles.navIcon, active === 'profile' && styles.active]} />
-      </TouchableOpacity>
+    <View style={styles.bottomTabBar}>
+      <LinearGradient
+        colors={['#F5A623', '#FFE259']}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 0 }}
+        style={styles.tabGradient}
+      >
+        <TouchableOpacity style={styles.tabBtn} onPress={() => navigation.navigate('History')}>
+          <Image 
+            source={require('./Images/list-icon.png')} 
+            style={styles.tabIcon}
+            resizeMode="contain"
+          />
+        </TouchableOpacity>
+        
+        <TouchableOpacity style={styles.tabBtn} onPress={() => navigation.navigate('Matching')}>
+          <Image 
+            source={require('./Images/heart-hands-icon.png')} 
+            style={styles.tabIcon}
+            resizeMode="contain"
+          />
+        </TouchableOpacity>
+        
+        <TouchableOpacity style={styles.tabBtn} onPress={() => navigation.navigate('Main')}>
+          <Image 
+            source={require('./Images/profile-icon.png')} 
+            style={styles.tabIcon}
+            resizeMode="contain"
+          />
+        </TouchableOpacity>
+      </LinearGradient>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  bottomNav: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+  bottomTabBar: {
     position: 'absolute',
     left: 0,
     right: 0,
     bottom: 0,
-    width: '100%',
     height: 100,
-    backgroundColor: '#FFD580',
     borderTopLeftRadius: 0,
     borderTopRightRadius: 0,
-    paddingHorizontal: 48,
-    marginTop: 0,
-    paddingBottom: 0,
+    backgroundColor: '#F5A623',
   },
-  navIcon: {
-    width: 70,
-    height: 70,
-    opacity: 0.7,
+  tabGradient: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    paddingVertical: 12,
   },
-  navLogo: {
-    width: 70,
-    height: 70,
-    opacity: 0.7,
+  tabBtn: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    flex: 1,
   },
-  active: {
-    opacity: 1,
+  tabIcon: {
+    width: 80,
+    height: 80,
   },
 }); 

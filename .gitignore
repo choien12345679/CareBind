@@ -6,9 +6,12 @@ node_modules/
 # carebind-461014-50a82da5eacf.json 파일 제외 (API KEY)
 src/Components/Warning
 
+bfg-1.14.0.jar
+
 # Android
 android/app/build/
 android/build/
+android/app/.cxx/
 
 # Expo
 .expo/

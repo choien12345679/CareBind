@@ -1,51 +1,56 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Modal, Alert, Image } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, Image, StyleSheet, TouchableOpacity, ScrollView, Modal, Alert } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const history = [
+const activities = [
   {
-    time: '18:00 May 12, 2025',
-    volunteer: 'Alex',
-    content: 'Go to the bank together(OO Bank)',
+    time: '14:00 Jun 15, 2025',
+    name: 'Hyejin',
+    desc: 'Accompany Hyejin to the district office and assist with paperwork.',
   },
   {
-    time: '15:15 May 11, 2026',
-    volunteer: 'Jeny',
-    content: 'Replace a light bulb',
+    time: '10:00 May 11, 2025',
+    name: 'Mr. Choi',
+    desc: 'Help Mr. Choi with grocery shopping at the local market.',
   },
   {
-    time: '17:20 May 9, 2026',
-    volunteer: 'Alex',
-    content: 'Help with grocery shopping',
-  },
-  {
-    time: '13:00 May 7, 2026',
-    volunteer: 'Chris',
-    content: 'Read a government notice aloud',
-  },
-  {
-    time: '14:20 May 5, 2026',
-    volunteer: 'Jeny',
-    content: 'Fix the TV remote control',
-  },
-  {
-    time: '12:20 May 4, 2026',
-    volunteer: 'Jeny',
-    content: 'Help install a gas alarm',
+    time: '18:00 May 21, 2025',
+    name: 'Minjae',
+    desc: 'Attend a counseling session with Minjae and provide support.',
   },
 ];
 
-export default function HistoryScreen({ navigation }) {
+export default function VolunteerActivitiesScreen({ navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
-  const [selectedHistory, setSelectedHistory] = useState(null);
+  const [selectedActivity, setSelectedActivity] = useState(null);
+  const [currentUser, setCurrentUser] = useState(null);
 
-  const openModal = (item) => {
-    setSelectedHistory(item);
+  // 현재 로그인한 사용자 정보 가져오기
+  useEffect(() => {
+    const getCurrentUser = async () => {
+      try {
+        const userData = await AsyncStorage.getItem('currentUser');
+        if (userData) {
+          const parsedUserData = JSON.parse(userData);
+          setCurrentUser(parsedUserData);
+        }
+      } catch (error) {
+        console.error('Error getting current user:', error);
+      }
+    };
+
+    getCurrentUser();
+  }, []);
+
+  const openModal = (activity) => {
+    setSelectedActivity(activity);
     setModalVisible(true);
   };
+
   const closeModal = () => {
     setModalVisible(false);
-    setSelectedHistory(null);
+    setSelectedActivity(null);
   };
 
   // 탭 버튼 핸들러
@@ -58,18 +63,24 @@ export default function HistoryScreen({ navigation }) {
   };
 
   const handleProfile = () => {
-    navigation.navigate('Main');
+    // 현재 화면이므로 아무 동작 없음
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>View Reservation History</Text>
+      <Image source={require('../Components/Images/mainLogo.png')} style={styles.logo} />
+      <Text style={styles.greeting}>
+        <Text style={{fontWeight:'bold'}}>
+          {currentUser ? currentUser.id : 'User'},{"\n"}thank you again today!
+        </Text>
+      </Text>
+      <Text style={styles.sectionTitle}>Current Volunteer Activities</Text>
       <ScrollView style={{width:'100%'}} contentContainerStyle={{alignItems:'center'}} showsVerticalScrollIndicator={false}>
-        {history.map((item, idx) => (
+        {activities.map((item, idx) => (
           <TouchableOpacity key={idx} style={styles.card} activeOpacity={0.85} onPress={() => openModal(item)}>
             <Text style={styles.time}>{item.time}</Text>
-            <Text style={styles.volunteer}>Volunteer: {item.volunteer}</Text>
-            <Text style={styles.content}>{item.content}</Text>
+            <Text style={styles.name}>Socially Disadvantaged : {item.name}</Text>
+            <Text style={styles.desc}>{item.desc}</Text>
           </TouchableOpacity>
         ))}
       </ScrollView>
@@ -112,11 +123,12 @@ export default function HistoryScreen({ navigation }) {
       <Modal visible={modalVisible} transparent animationType="fade">
         <View style={styles.modalContainer}>
           <View style={styles.detailCard}>
-            {selectedHistory && (
+            <Image source={require('../Components/Images/mainLogo.png')} style={styles.modalLogo} />
+            {selectedActivity && (
               <>
-                <Text style={styles.modalTime}>{selectedHistory.time}</Text>
-                <Text style={styles.modalVolunteer}>Volunteer: {selectedHistory.volunteer}</Text>
-                <Text style={styles.modalContent}>{selectedHistory.content}</Text>
+                <Text style={styles.modalTime}>{selectedActivity.time}</Text>
+                <Text style={styles.modalName}>Socially Disadvantaged : {selectedActivity.name}</Text>
+                <Text style={styles.modalDesc}>{selectedActivity.desc}</Text>
               </>
             )}
             <TouchableOpacity style={styles.closeBtn} onPress={closeModal}>
@@ -134,14 +146,30 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    paddingTop: 48,
+    paddingTop: 32,
     paddingBottom: 100,
   },
-  title: {
-    fontSize: 26,
+  logo: {
+    width: 120,
+    height: 80,
+    resizeMode: 'contain',
+    marginBottom: 8,
+  },
+  greeting: {
+    fontSize: 28,
+    color: '#222',
+    marginTop: 8,
+    marginBottom: 8,
+    textAlign: 'left',
+    width: '90%',
     fontWeight: 'bold',
-    color: '#FF9900',
-    marginBottom: 24,
+    lineHeight: 34,
+  },
+  sectionTitle: {
+    fontSize: 20,
+    color: '#6e6259',
+    fontWeight: 'bold',
+    marginBottom: 16,
     width: '90%',
     textAlign: 'left',
   },
@@ -161,21 +189,21 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
   },
   time: {
-    fontSize: 16,
+    fontSize: 15,
+    color: '#444',
     fontWeight: 'bold',
-    color: '#222',
     marginBottom: 2,
   },
-  volunteer: {
+  name: {
     fontSize: 15,
     color: '#444',
     marginBottom: 2,
   },
-  content: {
+  desc: {
     fontSize: 15,
     color: '#444',
+    marginBottom: 8,
   },
-  // 하단 탭바 스타일 (DPMainScreen과 동일)
   bottomTabBar: {
     position: 'absolute',
     left: 0,
@@ -220,19 +248,24 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 8,
   },
+  modalLogo: {
+    width: 60,
+    height: 60,
+    marginBottom: 12,
+  },
   modalTime: {
     fontSize: 18,
     fontWeight: 'bold',
     color: '#FF9900',
     marginBottom: 8,
   },
-  modalVolunteer: {
+  modalName: {
     fontSize: 16,
     color: '#444',
     marginBottom: 6,
     fontWeight: 'bold',
   },
-  modalContent: {
+  modalDesc: {
     fontSize: 15,
     color: '#444',
     marginBottom: 18,
@@ -251,4 +284,4 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#FF9900',
   },
-}); 
+});

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Image, StyleSheet, Alert } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import * as DocumentPicker from 'expo-document-picker';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function VTExtraInfoScreen({ navigation }) {
   const [characteristics, setCharacteristics] = useState('');
@@ -22,18 +23,51 @@ export default function VTExtraInfoScreen({ navigation }) {
     }
   };
 
-  const handleSignUp = () => {
-    if (!characteristics || !job) {
-      Alert.alert('Error', 'Please fill in all required fields');
-      return;
-    }
-    // TODO: Add actual sign up logic here
-    Alert.alert('Success', 'Sign up completed successfully', [
-      {
-        text: 'OK',
-        onPress: () => navigation.navigate('Login')
+  const handleSignUp = async () => {
+    try {
+      // 입력값 유효성 검사
+      if (!characteristics || !job) {
+        Alert.alert('오류', '모든 필수 항목을 입력해주세요');
+        return;
       }
-    ]);
+
+      // 기존 회원가입 정보 가져오기
+      const existingSignUpData = await AsyncStorage.getItem('vtSignUpData');
+      if (!existingSignUpData) {
+        Alert.alert('오류', '기본 회원가입 정보를 찾을 수 없습니다.');
+        return;
+      }
+
+      const parsedSignUpData = JSON.parse(existingSignUpData);
+
+      // 최종 회원가입 정보 생성
+      const completeSignUpData = {
+        ...parsedSignUpData,
+        characteristics: characteristics,
+        job: job,
+        certificate: certificate,
+        experience: experience,
+        certificateFile: certificateFile,
+        experienceFile: experienceFile,
+        signUpCompletedAt: new Date().toISOString(),
+        step: 'completed'
+      };
+
+      // 최종 회원가입 정보를 vtSignUpData에 업데이트
+      await AsyncStorage.setItem('vtSignUpData', JSON.stringify(completeSignUpData));
+
+      // 회원가입 완료 알림
+      Alert.alert('가입완료', '자원봉사자 회원가입이 완료되었습니다!', [
+        {
+          text: '확인',
+          onPress: () => navigation.navigate('Login')
+        }
+      ]);
+
+    } catch (error) {
+      console.error('Error completing signup:', error);
+      Alert.alert('오류', '회원가입 완료 중 오류가 발생했습니다.');
+    }
   };
 
   return (
